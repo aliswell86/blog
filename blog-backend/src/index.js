@@ -1,11 +1,21 @@
 const Koa = require('koa');
 const Router = require('koa-router');
 const bodyParser = require('koa-bodyparser');
+const mongoose   = require("mongoose");
 
 const api = require('./api');
 
 const app = new Koa();
 const router = new Router();
+
+// DB setting
+// mongoose.connect(process.env.MONGO_DB); // 1
+mongoose.Promise = global.Promise;
+mongoose.connect("mongodb://my_mean:dlskdud1@ds121321.mlab.com:21321/my_mean").then(() => {
+  console.log("DB connected");
+}).catch((e) => {
+  console.error(e);
+});
 
 // 라우터 설정
 router.use('/api', api.routes()); // api 라우트 적용

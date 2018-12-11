@@ -1,12 +1,5 @@
-[33m[nodemon] 1.18.6[39m
-[33m[nodemon] to restart at any time, enter `rs`[39m
-[33m[nodemon] watching: *.*[39m
-[32m[nodemon] starting `node src`[39m
-events.js:167
-      throw er; // Unhandled 'error' event
-      ^
-
-Error: EPERM: operation not permitted, read
-Emitted 'error' event at:
-    at lazyFs.read (internal/fs/streams.js:165:12)
-    at FSReqWrap.wrapper [as oncomplete] (fs.js:460:17)
+yarn run v1.12.3
+$ cross-env NODE_PATH=src node src
+(node:15700) DeprecationWarning: current URL string parser is deprecated, and will be removed in a future version. To use the new parser, pass option { useNewUrlParser: true } to MongoClient.connect.
+listening to port 4000
+DB connected
