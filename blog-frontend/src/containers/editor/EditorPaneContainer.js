@@ -18,7 +18,7 @@ class EditorPaneContainer extends React.Component {
     return (
       <EditorPane
         title={title}
-        mardown={markdown}
+        markdown={markdown}
         tags={tags}
         onChangeInput={handleChangeInput}/>
     )

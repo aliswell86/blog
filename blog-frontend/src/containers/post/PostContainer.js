@@ -22,12 +22,15 @@ class PostContainer extends Component {
   }
 
   render() {
-    const {post} = this.props;
-    console.log(post);
+    const {loading, post} = this.props;
+    if(loading) return null;
+    
+    const {body, title, publishedDate, tags} = post.toJS();
+
     return (
       <div>
-        <PostInfo/>
-        <PostBody/>
+        <PostInfo title={title} publishedDate={publishedDate} tags={tags}/>
+        <PostBody body={body}/>
       </div>
     );
   }
@@ -36,7 +39,7 @@ class PostContainer extends Component {
 
 export default connect(
   (state) => ({
-    post: state.post,
+    post: state.post.get('post'),
     loading: state.pender.pending['post/GET_POST']
   }),
   (dispatch) => ({
