@@ -128,22 +128,19 @@ exports.replace = (ctx) => {
   PATCH /api/posts/:id
   {title, body}
 */
-exports.update = (ctx) => {
+exports.update = async (ctx) => {
   const {id} = ctx.params;
-
-  const index = posts.findIndex(p => p.id.tostring() === id);
-
-  if(index === -1) {
-    ctx.status = 404;
-    ctx.body = {
-      messsage: '포스트가 존재하지 않습니다.'
-    };
-    return;
+  try {
+    const post = await Post.findByIdAndUpdate(id, ctx.request.body, {
+      new: true //업데이트 이후 객제반환. 디폴트 = 업데이트 전 객체
+    }).exec();
+    // 포스트가 존재하지 않을때
+    if(!post) {
+      ctx.status = 404;
+      return;
+    }
+    ctx.body = post;
+  } catch(e) {
+    ctx.throw(e, 500);
   }
-
-  posts[index] = {
-    ...posts[index],
-    ...ctx.request.body
-  };
-  ctx.body = posts[index];
 }

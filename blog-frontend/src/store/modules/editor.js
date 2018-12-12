@@ -13,7 +13,7 @@ export const initialize = createAction(INITIALIZE);
 export const changeInput = createAction(CHANGE_INPUT);
 export const writePost = createAction(WRITE_POST, api.writePost);
 export const getPost = createAction(GET_POST, api.getPost);
-// export const editPost = createAction(EDIT_POST, api.editPost);
+export const editPost = createAction(EDIT_POST, api.editPost);
 
 const initialState = Map({
   title: '',
@@ -41,6 +41,13 @@ export default handleActions({
     onSuccess: (state, action) => {
       const {title, body, tags} = action.payload.data;
       return state.set('title', title).set('markdown', body).set('tags', tags);
+    }
+  }),
+  //생략가능
+  ...pender({
+    type:EDIT_POST,
+    onSucess: (state, action) => {
+      return state;
     }
   })
 }, initialState);
