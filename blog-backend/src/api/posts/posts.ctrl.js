@@ -83,21 +83,15 @@ exports.read = async (ctx) => {
 /* 특정 포스트 제거
   DELETE /api/posts/:id
 */
-exports.remove = (ctx) => {
+exports.remove = async (ctx) => {
   const {id} = ctx.params;
-
-  const index = posts.findIndex(p => p.id.toString() === id);
-
-  if(index === -1) {
-    ctx.status = 404;
-    ctx.body = {
-      messsage: '포스트가 존재하지 않습니다.'
-    };
-    return;
+  
+  try {
+    await Post.findByIdAndRemove(id).exec();
+    ctx.status = 204;
+  } catch(e) {
+    ctx.throw(e, 500);
   }
-
-  posts.splice(index, 1);
-  ctx.status = 204; //No Content
 };
 
 /* 포스트 수정(교체)

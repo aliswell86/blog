@@ -25,7 +25,8 @@ class EditorHeaderContainer extends Component {
 
   handleSubmit = async () => {
     const {title, markdown, tags, EditorActions, history, location} = this.props;
-
+    console.log(typeof(tags));
+    console.log(tags.split(','));
     const post = {
       title,
       body: markdown,
