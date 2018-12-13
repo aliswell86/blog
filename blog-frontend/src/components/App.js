@@ -1,6 +1,7 @@
 import React from 'react';
 import {Switch, Route} from 'react-router-dom';
 import {ListPage, PostPage, EditorPage, NotFountPage} from 'pages';
+import BaseContainer from 'containers/common/BaseContainer';
 
 const App = () => {
   return (
@@ -11,6 +12,7 @@ const App = () => {
         <Route path="/editor" component={EditorPage} />
         <Route component={NotFountPage} />
       </Switch>
+      <BaseContainer/>
     </div>
   );
 };

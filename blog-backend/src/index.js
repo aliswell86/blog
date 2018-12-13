@@ -17,6 +17,14 @@ const {
   COOKIE_SIGN_KEY: signKey
 } = process.env;
 
+const sessionConfig = {
+  maxAge: 86400000, //하루
+  // signed: true //기본값
+}
+
+app.use(session(sessionConfig, app));
+app.key = [signKey];
+
 // DB setting
 // mongoose.connect(process.env.MONGO_DB); // 1
 mongoose.Promise = global.Promise;
