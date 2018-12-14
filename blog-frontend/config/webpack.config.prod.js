@@ -68,7 +68,13 @@ const getStyleLoaders = (cssOptions, preProcessor) => {
     },
     {
       loader: require.resolve('css-loader'),
-      options: cssOptions,
+      // options: cssOptions,
+      options: {
+        importLoaders: 1,
+        modules: true,
+        // localIdentName: '[path][name]_ _[local]--[hash:base64:5]'
+        localIdentName: '[local]'
+      },
     },
     {
       // Options for PostCSS as we reference these options twice
@@ -376,13 +382,19 @@ module.exports = {
           {
             test: sassRegex,
             exclude: sassModuleRegex,
-            loader: getStyleLoaders(
-              {
-                importLoaders: 2,
-                sourceMap: shouldUseSourceMap,
-              },
-              'sass-loader'
-            ),
+            // loader: getStyleLoaders(
+            //   {
+            //     importLoaders: 2,
+            //     sourceMap: shouldUseSourceMap,
+            //   },
+            //   'sass-loader'
+            // ),
+            use: getStyleLoaders({ importLoaders: 2 }).concat({
+              loader: require.resolve('sass-loader'),
+              options: {
+                includePaths: [paths.appSrc + '/styles']
+              }
+            }),
             // Don't consider CSS imports dead code even if the
             // containing package claims to have no side effects.
             // Remove this when webpack adds a warning or an error for this.
