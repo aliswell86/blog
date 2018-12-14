@@ -6,6 +6,14 @@ import LoginModalContainer from 'containers/modal/LoginModalContainer';
 
 class BaseContainer extends Component {
 
+  initialze = async() => {
+    const {BaseActions} = this.props;
+    if(localStorage.logged === 'true') {
+      BaseActions.tempLogin();
+    }
+    BaseActions.checkLogin();
+  }
+
   render() {
     return (
       <LoginModalContainer/>
